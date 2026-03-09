@@ -4,7 +4,29 @@
 <meta charset="UTF-8">
 <title>Hosting Plans</title>
 <link rel="stylesheet" href="style.css">
+
+<!-- Firebase CDN -->
+<script src="https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js"></script>
+
+<script>
+  // Your Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyDkvlHKcOjQQneq_kw0rHjIsxoftasr-hA",
+    authDomain: "novahostauth.firebaseapp.com",
+    projectId: "novahostauth",
+    storageBucket: "novahostauth.firebasestorage.app",
+    messagingSenderId: "693315582637",
+    appId: "1:693315582637:web:ca2748d989447b93f86424",
+    measurementId: "G-259EF1BDCF"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+
+<!-- Paystack -->
 <script src="https://js.paystack.co/v1/inline.js"></script>
+
 </head>
 <body>
 
@@ -34,7 +56,7 @@
 <li>10GB Storage</li>
 <li>Free SSL</li>
 </ul>
-<button class="payBtn" data-plan="Basic" data-price="25000">Pay Now</button> <!-- 250 GHS = 25,000 pesewas -->
+<button class="payBtn" data-plan="Basic" data-price="25000">Pay Now</button>
 </div>
 
 <div class="plan">
@@ -45,7 +67,7 @@
 <li>50GB Storage</li>
 <li>Free SSL</li>
 </ul>
-<button class="payBtn" data-plan="Standard" data-price="55000">Pay Now</button> <!-- 550 GHS = 55,000 pesewas -->
+<button class="payBtn" data-plan="Standard" data-price="55000">Pay Now</button>
 </div>
 
 <div class="plan">
@@ -56,13 +78,78 @@
 <li>100GB Storage</li>
 <li>Free SSL</li>
 </ul>
-<button class="payBtn" data-plan="Premium" data-price="250000">Pay Now</button> <!-- 2,500 GHS = 250,000 pesewas -->
+<button class="payBtn" data-plan="Premium" data-price="250000">Pay Now</button>
 </div>
 
 </section>
 
-<script src="login.js"></script>
-<script type="module" src="plans.js"></script>
+<script src="login.js"></script> <!-- your login/signup JS -->
+
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', () => {
+
+  const auth = firebase.auth(); // Firebase Auth
+  const payButtons = document.querySelectorAll('.payBtn');
+
+  // Show logged-in user
+  auth.onAuthStateChanged(user => {
+      const welcomeMsg = document.getElementById('welcomeMsg');
+      const logoutBtn = document.getElementById('logoutBtn');
+      const loginBtn = document.getElementById('loginBtn');
+      const signupBtn = document.getElementById('signupBtn');
+
+      if(user){
+          welcomeMsg.textContent = `Logged in as: ${user.email}`;
+          logoutBtn.style.display = 'inline';
+          loginBtn.style.display = 'none';
+          signupBtn.style.display = 'none';
+      } else {
+          welcomeMsg.textContent = '';
+          logoutBtn.style.display = 'none';
+          loginBtn.style.display = 'inline';
+          signupBtn.style.display = 'inline';
+      }
+  });
+
+  // Paystack setup
+  payButtons.forEach(button => {
+      button.addEventListener('click', function(e){
+          e.preventDefault();
+
+          const user = auth.currentUser;
+          if(!user){
+              alert('You must be logged in to make a payment!');
+              return;
+          }
+
+          const planName = button.getAttribute('data-plan');
+          const amount = parseInt(button.getAttribute('data-price')); // in pesewas
+
+          let handler = PaystackPop.setup({
+              key: 'pk_live_0c6c42e6e102bceb8f6c9feca402311d92cb9b25', // your live key
+              email: user.email,
+              amount: amount,
+              currency: 'GHS',
+              ref: '' + Math.floor((Math.random() * 1000000000) + 1),
+              metadata: {
+                  custom_fields: [
+                      { display_name: "Plan", variable_name: "plan_name", value: planName }
+                  ]
+              },
+              callback: function(response){
+                  alert(`Payment successful for ${planName} plan! Transaction ref: ${response.reference}`);
+              },
+              onClose: function(){
+                  alert('Transaction cancelled.');
+              }
+          });
+
+          handler.openIframe();
+      });
+  });
+
+});
+</script>
+
 </body>
 </html>
-
