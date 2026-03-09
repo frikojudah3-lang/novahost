@@ -18,14 +18,13 @@ forms.forEach(form => {
             return;
         }
 
-        // Your actual Paystack live Public Key
-        const paystackPublicKey = '
-            pk_live_0c6c42e6e102bceb8f6c9feca402311d92cb9b25';
+        // Paystack live public key (single line)
+        const paystackPublicKey = 'pk_live_0c6c42e6e102bceb8f6c9feca402311d92cb9b25';
 
         let handler = PaystackPop.setup({
             key: paystackPublicKey,
             email: email,
-            amount: price * 100, // convert GH₵ to smallest currency unit
+            amount: price * 100, // convert GH₵ to kobo
             currency: 'GHS',
             ref: '' + Math.floor(Math.random() * 1000000000 + 1),
             metadata: {
@@ -38,7 +37,7 @@ forms.forEach(form => {
             },
             callback: function(response){
                 alert('Payment successful! Reference: ' + response.reference);
-                // Optional: call your backend PHP to verify the payment
+                // Optional: verify payment on backend
                 fetch('verify_payment.php?reference=' + response.reference)
                     .then(res => res.json())
                     .then(data => alert(data.message))
@@ -51,5 +50,3 @@ forms.forEach(form => {
         handler.openIframe();
     });
 });
-
-
