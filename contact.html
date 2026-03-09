@@ -3,6 +3,19 @@
 <head>
     <title>Contact Us</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Inline success and error messages */
+        #formMessage {
+            margin-top: 10px;
+            font-weight: bold;
+            color: green;
+        }
+        #formError {
+            margin-top: 10px;
+            font-weight: bold;
+            color: red;
+        }
+    </style>
 </head>
 <body>
 
@@ -17,14 +30,47 @@
 </nav>
 
 <section class="contact">
-    <!-- Formspree integration -->
-    <form action="https://formspree.io/f/mrgwzjwl" method="POST">
+    <form id="contactForm" action="https://formspree.io/f/mdawabqo" method="POST">
         <input type="text" name="name" placeholder="Your Name" required>
         <input type="email" name="email" placeholder="Email Address" required>
         <textarea name="message" placeholder="Your Message" required></textarea>
         <button type="submit">Send Message</button>
     </form>
+    <div id="formMessage"></div>
+    <div id="formError"></div>
 </section>
+
+<script>
+    const form = document.getElementById('contactForm');
+    const successDiv = document.getElementById('formMessage');
+    const errorDiv = document.getElementById('formError');
+
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        successDiv.textContent = '';
+        errorDiv.textContent = '';
+
+        const formData = new FormData(form);
+        const action = form.action;
+
+        try {
+            const response = await fetch(action, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (response.ok) {
+                successDiv.textContent = 'Message sent successfully! Thank you for contacting us.';
+                form.reset();
+            } else {
+                errorDiv.textContent = 'Failed to send message. Please try again later.';
+            }
+        } catch (error) {
+            errorDiv.textContent = 'Failed to send message. Please check your connection.';
+        }
+    });
+</script>
 
 </body>
 </html>
