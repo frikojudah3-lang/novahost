@@ -3,7 +3,7 @@
 $data = json_decode(file_get_contents('php://input'), true);
 
 // Replace with your real Paystack secret key
-$secret_key = "sk_test_XXXXXXXXXXXXXXXXXXXXXXXX"; // <-- your real key here
+$secret_key = "REMOVED_FOR_SECURITY"; // <-- your real key here
 
 // Ensure price is numeric
 $price = isset($data['price']) ? (float)$data['price'] : 0;

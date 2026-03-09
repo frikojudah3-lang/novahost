@@ -3,8 +3,33 @@
 <head>
     <title>Hosting Plans - NovaHost</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Paystack Inline JS -->
+    <!-- Paystack -->
     <script src="https://js.paystack.co/v1/inline.js"></script>
+    <!-- Firebase -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID",
+            measurementId: "YOUR_MEASUREMENT_ID"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        onAuthStateChanged(auth, user => {
+            if(!user){
+                alert("Please log in to purchase a plan!");
+                window.location.href = "index.html";
+            }
+        });
+    </script>
 </head>
 <body>
 
@@ -39,7 +64,6 @@
                 <option value="Vodafone">Vodafone</option>
                 <option value="AirtelTigo">AirtelTigo</option>
             </select>
-            <!-- Corrected price -->
             <button type="submit" data-price="250" data-plan="Basic">Pay Now</button>
         </form>
     </div>
@@ -63,7 +87,6 @@
                 <option value="Vodafone">Vodafone</option>
                 <option value="AirtelTigo">AirtelTigo</option>
             </select>
-            <!-- Corrected price -->
             <button type="submit" data-price="550" data-plan="Standard">Pay Now</button>
         </form>
     </div>
@@ -87,13 +110,12 @@
                 <option value="Vodafone">Vodafone</option>
                 <option value="AirtelTigo">AirtelTigo</option>
             </select>
-            <!-- Corrected price -->
             <button type="submit" data-price="2500" data-plan="Premium">Pay Now</button>
         </form>
     </div>
 
 </section>
 
-<script src="script.js"></script>
+<script type="module" src="paystack.js"></script>
 </body>
 </html>

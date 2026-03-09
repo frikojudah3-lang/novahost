@@ -18,13 +18,13 @@ forms.forEach(form => {
             return;
         }
 
-        // Paystack live public key (single line)
-        const paystackPublicKey = 'pk_live_0c6c42e6e102bceb8f6c9feca402311d92cb9b25';
+        // Your actual Paystack Test Public Key
+        const paystackPublicKey = 'pk_test_a014693809d408834b53f78ab58c8f892e3f0d28';
 
         let handler = PaystackPop.setup({
             key: paystackPublicKey,
             email: email,
-            amount: price * 100, // convert GH₵ to kobo
+            amount: price * 100, // convert GH₵ to smallest currency unit
             currency: 'GHS',
             ref: '' + Math.floor(Math.random() * 1000000000 + 1),
             metadata: {
@@ -37,7 +37,7 @@ forms.forEach(form => {
             },
             callback: function(response){
                 alert('Payment successful! Reference: ' + response.reference);
-                // Optional: verify payment on backend
+                // Optional: call your backend PHP to verify the payment
                 fetch('verify_payment.php?reference=' + response.reference)
                     .then(res => res.json())
                     .then(data => alert(data.message))
