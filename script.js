@@ -19,7 +19,7 @@ forms.forEach(form => {
         }
 
         // Your actual Paystack Live Public Key
-        const paystackPublicKey = 'pk_live_a014693809d408834b53f78ab58c8f892e3f0d28';
+        const paystackPublicKey = 'pk_live_0c6c42e6e102bceb8f6c9feca402311d92cb9b25';
 
         let handler = PaystackPop.setup({
             key: paystackPublicKey,
@@ -50,4 +50,5 @@ forms.forEach(form => {
         handler.openIframe();
     });
 });
+
 
