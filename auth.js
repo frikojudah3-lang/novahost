@@ -1,8 +1,23 @@
+// Import Firebase functions
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
 
-const auth = getAuth();
+// --- Initialize Firebase ---
+const firebaseConfig = {
+  apiKey: "AIzaSyDkvlHKcOjQQneq_kw0rHjIsxoftasr-hA",
+  authDomain: "novahostauth.firebaseapp.com",
+  projectId: "novahostauth",
+  storageBucket: "novahostauth.firebasestorage.app",
+  messagingSenderId: "693315582637",
+  appId: "1:693315582637:web:ca2748d989447b93f86424"
+};
 
-// Signup
+const app = initializeApp(firebaseConfig); // Initialize Firebase
+const auth = getAuth(app); // Initialize Auth with the app
+
+console.log("Firebase initialized successfully!");
+
+// --- Signup ---
 document.getElementById('signupForm').addEventListener('submit', e=>{
     e.preventDefault();
     const email = document.getElementById('signupEmail').value;
@@ -13,7 +28,7 @@ document.getElementById('signupForm').addEventListener('submit', e=>{
         .catch(error=>alert(error.message));
 });
 
-// Login
+// --- Login ---
 document.getElementById('loginForm').addEventListener('submit', e=>{
     e.preventDefault();
     const email = document.getElementById('loginEmail').value;
@@ -24,7 +39,7 @@ document.getElementById('loginForm').addEventListener('submit', e=>{
         .catch(error=>alert(error.message));
 });
 
-// Password Reset
+// --- Password Reset ---
 document.getElementById('resetForm').addEventListener('submit', e=>{
     e.preventDefault();
     const email = document.getElementById('resetEmail').value;
