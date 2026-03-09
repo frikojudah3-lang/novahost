@@ -1,44 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NovaHost Plans</title>
+<title>NovaHost - Fast Web Hosting</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h2>Choose a Plan</h2>
+<header>
+<h1>NovaHost</h1>
+<p>Fast, Secure & Affordable Web Hosting</p>
+</header>
 
-<div class="plan">
-  <h3>Basic Plan</h3>
-  <p>50 GHS / month</p>
-  <label>
-    Months:
-    <input type="number" class="months" min="1" value="1">
-  </label>
-  <button class="pay-now" data-price="50" data-plan="Basic">Pay Now</button>
+<nav>
+<a href="index.html">Home</a>
+<a href="plans.html">Hosting Plans</a>
+<a href="contact.html">Contact</a>
+</nav>
+
+<section class="hero">
+<h2>Launch Your Website Today</h2>
+<p>Reliable hosting for students, developers and businesses.</p>
+<button onclick="showMessage()">Get Started</button>
+</section>
+
+<section class="features">
+
+<div class="box">
+<h3>⚡ Fast Servers</h3>
+<p>High speed hosting for all your websites.</p>
 </div>
 
-<div class="plan">
-  <h3>Standard Plan</h3>
-  <p>120 GHS / month</p>
-  <label>
-    Months:
-    <input type="number" class="months" min="1" value="1">
-  </label>
-  <button class="pay-now" data-price="120" data-plan="Standard">Pay Now</button>
+<div class="box">
+<h3>🔒 Secure</h3>
+<p>Free SSL certificates and security protection.</p>
 </div>
 
-<div class="plan">
-  <h3>Premium Plan</h3>
-  <p>250 GHS / month</p>
-  <label>
-    Months:
-    <input type="number" class="months" min="1" value="1">
-  </label>
-  <button class="pay-now" data-price="250" data-plan="Premium">Pay Now</button>
+<div class="box">
+<h3>📞 24/7 Support</h3>
+<p>Our team is ready to help anytime.</p>
 </div>
 
-<script src="paystack.js"></script> <!-- Your JS file -->
+</section>
+
+<script src="script.js"></script>
 </body>
 </html>
+
