@@ -1,73 +1,63 @@
-//////////////////////////////////////////////////////////
-// Fully functional plans.js for NovaHost
-// Requirements: 
-// - sessionStorage should store 'loggedInUser' after login/signup
-// - Plan buttons have data attributes: data-plan, data-price
-//////////////////////////////////////////////////////////
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
 
-// Update login status in nav
-function checkLogin() {
-    const user = sessionStorage.getItem('loggedInUser');
-    const status = document.getElementById('authStatus');
+const auth = getAuth();
+
+// Show logged-in user in header
+onAuthStateChanged(auth, user => {
+    const welcomeMsg = document.getElementById('welcomeMsg');
     const logoutBtn = document.getElementById('logoutBtn');
+    const loginBtn = document.getElementById('loginBtn');
+    const signupBtn = document.getElementById('signupBtn');
 
     if(user){
-        if(status) status.innerText = "Logged in as " + user;
-        if(logoutBtn) logoutBtn.style.display = "inline-block";
-        return true;
+        welcomeMsg.textContent = `Logged in as: ${user.email}`;
+        logoutBtn.style.display = 'inline';
+        loginBtn.style.display = 'none';
+        signupBtn.style.display = 'none';
     } else {
-        if(status) status.innerText = "Not logged in";
-        if(logoutBtn) logoutBtn.style.display = "none";
-        return false;
+        welcomeMsg.textContent = '';
+        logoutBtn.style.display = 'none';
+        loginBtn.style.display = 'inline';
+        signupBtn.style.display = 'inline';
     }
-}
+});
 
-// Logout function
-function logoutUser(){
-    sessionStorage.removeItem('loggedInUser');
-    alert("You have been logged out.");
-    checkLogin();
-}
+// Paystack setup for each plan button
+const payButtons = document.querySelectorAll('.payBtn');
 
-// Purchase function with Paystack inline
-function buyPlan(plan, price) {
-    if(!checkLogin()){
-        alert("Please log in to purchase a plan.");
-        return; // Stay on page
-    }
+payButtons.forEach(button => {
+    button.addEventListener('click', function(e){
+        e.preventDefault();
 
-    // Replace 'YOUR_PAYSTACK_PUBLIC_KEY' with your real public key
-    let handler = PaystackPop.setup({
-        key: 'YOUR_PAYSTACK_PUBLIC_KEY', 
-        email: sessionStorage.getItem('loggedInUser'),
-        amount: price * 100, // smallest currency unit
-        currency: 'GHS',
-        ref: '' + Math.floor(Math.random() * 1000000000 + 1),
-        metadata: {
-            custom_fields: [
-                { display_name: "Plan", variable_name: "plan", value: plan }
-            ]
-        },
-        callback: function(response){
-            alert('Payment successful! Reference: ' + response.reference);
-            // Optional: call your server to verify payment here
-        },
-        onClose: function(){
-            alert('Payment window closed.');
+        const planName = button.getAttribute('data-plan');
+        const amount = parseInt(button.getAttribute('data-price')); // in pesewas
+
+        const user = auth.currentUser;
+        if(!user){
+            alert('You must be logged in to make a payment!');
+            return;
         }
-    });
-    handler.openIframe();
-}
 
-// Attach Buy buttons
-document.addEventListener('DOMContentLoaded', function(){
-    checkLogin(); // Update nav on page load
-
-    document.querySelectorAll('.plan button').forEach(btn => {
-        btn.addEventListener('click', function(){
-            const plan = btn.dataset.plan;
-            const price = parseFloat(btn.dataset.price);
-            buyPlan(plan, price);
+        let handler = PaystackPop.setup({
+            key: 'pk_live_0c6c42e6e102bceb8f6c9feca402311d92cb9b25', // live key
+            email: user.email,
+            amount: amount,
+            currency: 'GHS', // Ghana cedis
+            ref: '' + Math.floor((Math.random() * 1000000000) + 1),
+            metadata: {
+                custom_fields: [
+                    { display_name: "Plan", variable_name: "plan_name", value: planName }
+                ]
+            },
+            callback: function(response){
+                alert(`Payment successful for ${planName} plan! Transaction ref: ${response.reference}`);
+            },
+            onClose: function(){
+                alert('Transaction cancelled.');
+            }
         });
+
+        handler.openIframe();
     });
 });
+
