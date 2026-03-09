@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hosting Plans - NovaHost</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Paystack Inline JS -->
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+</head>
+<body>
+
+<header>
+    <h1>Our Hosting Plans</h1>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="plans.html">Hosting Plans</a>
+    <a href="contact.html">Contact</a>
+</nav>
+
+<section class="plans">
+
+    <!-- Basic Plan -->
+    <div class="plan">
+        <h2>Basic Plan</h2>
+        <p>GH₵1,000</p>
+        <ul>
+            <li>1 Website</li>
+            <li>10GB Storage</li>
+            <li>Free SSL</li>
+        </ul>
+        <form class="payment-form">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email Address" required>
+            <input type="text" name="phone" placeholder="Phone Number" required>
+            <select name="network" required>
+                <option value="">Select Network</option>
+                <option value="MTN">MTN</option>
+                <option value="Vodafone">Vodafone</option>
+                <option value="AirtelTigo">AirtelTigo</option>
+            </select>
+            <button type="submit" data-price="12700" data-plan="Basic">Pay Now</button>
+        </form>
+    </div>
+
+    <!-- Standard Plan -->
+    <div class="plan">
+        <h2>Standard Plan</h2>
+        <p>GH₵1,500</p>
+        <ul>
+            <li>5 Websites</li>
+            <li>50GB Storage</li>
+            <li>Free SSL</li>
+        </ul>
+        <form class="payment-form">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email Address" required>
+            <input type="text" name="phone" placeholder="Phone Number" required>
+            <select name="network" required>
+                <option value="">Select Network</option>
+                <option value="MTN">MTN</option>
+                <option value="Vodafone">Vodafone</option>
+                <option value="AirtelTigo">AirtelTigo</option>
+            </select>
+            <button type="submit" data-price="20000" data-plan="Standard">Pay Now</button>
+        </form>
+    </div>
+
+    <!-- Premium Plan -->
+    <div class="plan">
+        <h2>Premium Plan</h2>
+        <p>GH₵35,000</p>
+        <ul>
+            <li>Unlimited Websites</li>
+            <li>100GB Storage</li>
+            <li>Free SSL</li>
+        </ul>
+        <form class="payment-form">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email Address" required>
+            <input type="text" name="phone" placeholder="Phone Number" required>
+            <select name="network" required>
+                <option value="">Select Network</option>
+                <option value="MTN">MTN</option>
+                <option value="Vodafone">Vodafone</option>
+                <option value="AirtelTigo">AirtelTigo</option>
+            </select>
+            <button type="submit" data-price="35000" data-plan="Premium">Pay Now</button>
+        </form>
+    </div>
+
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
