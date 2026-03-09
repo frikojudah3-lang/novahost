@@ -1,40 +1,23 @@
-const forms = document.querySelectorAll('.payment-form');
+// Paystack payment setup
+const payButton = document.getElementById('payButton'); // Make sure your button has id="payButton"
 
-forms.forEach(form=>{
-    form.addEventListener('submit', e=>{
-        e.preventDefault();
+payButton.addEventListener('click', function(e){
+    e.preventDefault();
 
-        const name = form.querySelector('input[name="name"]').value;
-        const email = form.querySelector('input[name="email"]').value;
-        const phone = form.querySelector('input[name="phone"]').value;
-        const network = form.querySelector('select[name="network"]').value;
-        const price = parseFloat(form.querySelector('button').dataset.price);
-        const plan = form.querySelector('button').dataset.plan;
-
-        if(!network){ alert("Select network provider"); return; }
-
-        const paystackPublicKey = "YOUR_PAYSTACK_PUBLIC_KEY";
-
-        const handler = PaystackPop.setup({
-            key: paystackPublicKey,
-            email: email,
-            amount: price*100,
-            currency: "GHS",
-            ref: ''+Math.floor(Math.random()*1000000000+1),
-            metadata:{
-                custom_fields:[
-                    {display_name:"Full Name",variable_name:"full_name",value:name},
-                    {display_name:"Phone",variable_name:"phone",value:phone},
-                    {display_name:"Network",variable_name:"network",value:network},
-                    {display_name:"Plan",variable_name:"plan",value:plan}
-                ]
-            },
-            callback:function(response){
-                alert('Payment successful! Reference: '+response.reference);
-            },
-            onClose:function(){alert('Payment closed');}
-        });
-
-        handler.openIframe();
+    let handler = PaystackPop.setup({
+        key: 'pk_live_0c6c42e6e102bceb8f6c9feca402311d92cb9b25', // ← your live public key
+        email: document.getElementById('email').value, // user's email input field
+        amount: parseFloat(document.getElementById('amount').value) * 100, // amount in kobo
+        currency: 'NGN', // change if needed
+        ref: '' + Math.floor((Math.random() * 1000000000) + 1), // unique transaction reference
+        callback: function(response){
+            alert('Payment successful. Transaction ref: ' + response.reference);
+            // Here you can redirect or call your backend to verify payment
+        },
+        onClose: function(){
+            alert('Transaction was not completed, window closed.');
+        }
     });
+
+    handler.openIframe();
 });
