@@ -10,7 +10,7 @@
 <script src="https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js"></script>
 
 <script>
-  // Your Firebase config
+  // Firebase configuration
   const firebaseConfig = {
     apiKey: "AIzaSyDkvlHKcOjQQneq_kw0rHjIsxoftasr-hA",
     authDomain: "novahostauth.firebaseapp.com",
@@ -20,6 +20,7 @@
     appId: "1:693315582637:web:ca2748d989447b93f86424",
     measurementId: "G-259EF1BDCF"
   };
+
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 </script>
@@ -85,13 +86,13 @@
 
 <script src="login.js"></script> <!-- your login/signup JS -->
 
-<script type="text/javascript">
+<script>
 document.addEventListener('DOMContentLoaded', () => {
 
-  const auth = firebase.auth(); // Firebase Auth
+  const auth = firebase.auth();
   const payButtons = document.querySelectorAll('.payBtn');
 
-  // Show logged-in user
+  // Show logged-in user info
   auth.onAuthStateChanged(user => {
       const welcomeMsg = document.getElementById('welcomeMsg');
       const logoutBtn = document.getElementById('logoutBtn');
@@ -126,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const amount = parseInt(button.getAttribute('data-price')); // in pesewas
 
           let handler = PaystackPop.setup({
-              key: 'pk_live_0c6c42e6e102bceb8f6c9feca402311d92cb9b25', // your live key
+              key: 'pk_live_0c6c42e6e102bceb8f6c9feca402311d92cb9b25',
               email: user.email,
               amount: amount,
               currency: 'GHS',
