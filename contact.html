@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Contact Us</title>
-<link rel="stylesheet" href="style.css">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
-<h1>Contact NovaHost</h1>
+    <h1>Contact NovaHost</h1>
 </header>
 
 <nav>
-<a href="index.html">Home</a>
-<a href="plans.html">Hosting Plans</a>
-<a href="contact.html">Contact</a>
+    <a href="index.html">Home</a>
+    <a href="plans.html">Hosting Plans</a>
+    <a href="contact.html">Contact</a>
 </nav>
 
 <section class="contact">
-<form onsubmit="submitForm(event)">
-<input id="contactName" type="text" placeholder="Your Name" required>
-<input id="contactEmail" type="email" placeholder="Email Address" required>
-<textarea id="contactMessage" placeholder="Your Message" required></textarea>
-<button type="submit">Send Message</button>
-</form>
+    <!-- Formspree integration -->
+    <form action="https://formspree.io/f/mrgwzjwl" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Email Address" required>
+        <textarea name="message" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+    </form>
 </section>
 
-<script src="script.js"></script>
 </body>
 </html>
-
