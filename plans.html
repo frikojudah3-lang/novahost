@@ -11,115 +11,54 @@
 
 <!-- Paystack -->
 <script src="https://js.paystack.co/v1/inline.js"></script>
-
-<style>
-/* Plans page styling */
-body { font-family: Arial, sans-serif; margin:0; background:#f4f4f4; }
-header { background:#0a2a66; color:white; padding:20px; text-align:center; }
-nav { background:#fff; display:flex; justify-content:center; align-items:center; padding:15px; gap:20px; border-bottom:1px solid #ddd; position: sticky; top:0; z-index:100; }
-nav a { text-decoration:none; color:#0a2a66; font-weight:bold; transition:0.3s; }
-nav a:hover { background:#0a2a66; color:#fff; border-radius:5px; padding:5px 10px; }
-nav #welcomeMsg { margin-left:20px; font-size:0.9rem; color:#555; }
-nav button { margin-left:10px; padding:5px 10px; background:#0077ff; color:#fff; border:none; border-radius:5px; cursor:pointer; transition:0.3s; }
-nav button:hover { background:#005bbb; }
-
-.plans { display:flex; justify-content:center; gap:20px; padding:40px; flex-wrap:wrap; }
-.plan { background:#fff; padding:25px; border-radius:15px; width:250px; box-shadow:0 5px 15px rgba(0,0,0,0.1); text-align:center; transition:0.3s; }
-.plan:hover { transform: translateY(-5px); }
-.plan h2 { color:#0a2a66; margin-bottom:15px; }
-.plan p { font-size:1.2rem; margin-bottom:15px; }
-.plan ul { list-style:none; padding:0; margin-bottom:20px; }
-.plan ul li { margin-bottom:10px; color:#555; }
-.plan button { padding:10px 20px; background:#ff6600; color:#fff; border:none; border-radius:10px; cursor:pointer; transition:0.3s; }
-.plan button:hover { background:#e65500; }
-
-/* Auth Forms */
-#signupLoginForms { max-width:400px; margin:20px auto; background:#fff; padding:25px; border-radius:15px; box-shadow:0 5px 15px rgba(0,0,0,0.1); }
-#signupLoginForms.hidden { display:none; }
-#signupLoginForms h3 { margin-bottom:15px; color:#0a2a66; text-align:center; }
-#signupLoginForms form { display:flex; flex-direction:column; gap:15px; margin-bottom:20px; }
-#signupLoginForms input { padding:10px; border-radius:8px; border:1px solid #ccc; font-size:1rem; }
-#signupLoginForms button { padding:10px; background:#0a2a66; color:#fff; border:none; border-radius:8px; cursor:pointer; font-size:1rem; transition:0.3s; }
-#signupLoginForms button:hover { background:#005bbb; }
-</style>
-
 </head>
 <body>
 
 <header>
-    <h1>Our Hosting Plans</h1>
-    <div id="userPanel">
-        <span id="welcomeMsg"></span>
-        <button id="loginBtn">Login</button>
-        <button id="signupBtn">Sign Up</button>
-        <button id="logoutBtn" style="display:none;">Logout</button>
-    </div>
+  <h1>Our Hosting Plans</h1>
+  <span id="authStatus">Not logged in</span>
+  <button id="logoutBtn" style="display:none;">Logout</button>
 </header>
 
 <nav>
-    <a href="index.html">Home</a>
-    <a href="plans.html">Hosting Plans</a>
-    <a href="contact.html">Contact</a>
+  <a href="index.html">Home</a>
+  <a href="plans.html">Hosting Plans</a>
+  <a href="contact.html">Contact</a>
 </nav>
 
-<!-- Signup / Login Forms -->
-<section id="signupLoginForms" class="hidden">
-  <h3>Sign Up</h3>
-  <form id="signupForm">
-      <input type="email" id="signupEmail" placeholder="Email" required>
-      <input type="password" id="signupPassword" placeholder="Password" required>
-      <button type="submit">Sign Up</button>
-  </form>
+<section class="plans">
+  <div class="plan">
+    <h2>Basic Plan</h2>
+    <p>GHS 250/month</p>
+    <ul>
+      <li>1 Website</li>
+      <li>10GB Storage</li>
+      <li>Free SSL</li>
+    </ul>
+    <button class="payBtn" data-plan="Basic" data-price="25000">Pay Now</button>
+  </div>
 
-  <h3>Login</h3>
-  <form id="loginForm">
-      <input type="email" id="loginEmail" placeholder="Email" required>
-      <input type="password" id="loginPassword" placeholder="Password" required>
-      <button type="submit">Login</button>
-  </form>
+  <div class="plan">
+    <h2>Standard Plan</h2>
+    <p>GHS 550/month</p>
+    <ul>
+      <li>5 Websites</li>
+      <li>50GB Storage</li>
+      <li>Free SSL</li>
+    </ul>
+    <button class="payBtn" data-plan="Standard" data-price="55000">Pay Now</button>
+  </div>
 
-  <h3>Reset Password</h3>
-  <form id="resetForm">
-      <input type="email" id="resetEmail" placeholder="Your Email" required>
-      <button type="submit">Reset Password</button>
-  </form>
-</section>
-
-<section class="plans" id="plansSection">
-
-<div class="plan">
-<h2>Basic Plan</h2>
-<p>GHS 250/month</p>
-<ul>
-<li>1 Website</li>
-<li>10GB Storage</li>
-<li>Free SSL</li>
-</ul>
-<button id="payBtn" data-plan="Basic" data-price="25000">Pay Now</button>
-</div>
-
-<div class="plan">
-<h2>Standard Plan</h2>
-<p>GHS 550/month</p>
-<ul>
-<li>5 Websites</li>
-<li>50GB Storage</li>
-<li>Free SSL</li>
-</ul>
-<button id="payBtn" data-plan="Standard" data-price="55000">Pay Now</button>
-</div>
-
-<div class="plan">
-<h2>Premium Plan</h2>
-<p>GHS 2,500/month</p>
-<ul>
-<li>Unlimited Websites</li>
-<li>100GB Storage</li>
-<li>Free SSL</li>
-</ul>
-<button id="payBtn" data-plan="Premium" data-price="250000">Pay Now</button>
-</div>
-
+  <div class="plan">
+    <h2>Premium Plan</h2>
+    <p>GHS 2,500/month</p>
+    <ul>
+      <li>Unlimited Websites</li>
+      <li>100GB Storage</li>
+      <li>Free SSL</li>
+    </ul>
+    <button class="payBtn" data-plan="Premium" data-price="250000">Pay Now</button>
+  </div>
 </section>
 
 <script>
@@ -135,23 +74,17 @@ nav button:hover { background:#005bbb; }
   firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
 
+  const authStatus = document.getElementById('authStatus');
+  const logoutBtn = document.getElementById('logoutBtn');
+
   // Auth state
   auth.onAuthStateChanged(user => {
-    const welcomeMsg = document.getElementById('welcomeMsg');
-    const logoutBtn = document.getElementById('logoutBtn');
-    const loginBtn = document.getElementById('loginBtn');
-    const signupBtn = document.getElementById('signupBtn');
-
     if(user){
-      welcomeMsg.textContent = `Logged in as: ${user.email}`;
+      authStatus.innerText = `Logged in as: ${user.email}`;
       logoutBtn.style.display = 'inline';
-      loginBtn.style.display = 'none';
-      signupBtn.style.display = 'none';
     } else {
-      welcomeMsg.textContent = '';
+      authStatus.innerText = 'Not logged in';
       logoutBtn.style.display = 'none';
-      loginBtn.style.display = 'inline';
-      signupBtn.style.display = 'inline';
     }
   });
 
@@ -160,80 +93,41 @@ nav button:hover { background:#005bbb; }
     auth.signOut().then(()=> alert('Logged out successfully!'));
   });
 
-  // Signup
-  document.getElementById('signupForm').addEventListener('submit', e=>{
-    e.preventDefault();
-    const email = document.getElementById('signupEmail').value;
-    const password = document.getElementById('signupPassword').value;
-    auth.createUserWithEmailAndPassword(email,password)
-      .then(()=> alert('Account created successfully!'))
-      .catch(err=> alert(err.message));
-  });
-
-  // Login
-  document.getElementById('loginForm').addEventListener('submit', e=>{
-    e.preventDefault();
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-    auth.signInWithEmailAndPassword(email,password)
-      .then(()=> alert('Logged in successfully!'))
-      .catch(err=> alert(err.message));
-  });
-
-  // Reset Password
-  document.getElementById('resetForm').addEventListener('submit', e=>{
-    e.preventDefault();
-    const email = document.getElementById('resetEmail').value;
-    auth.sendPasswordResetEmail(email)
-      .then(()=> alert('Password reset email sent!'))
-      .catch(err=> alert(err.message));
-  });
-
-  // Paystack Payments
-  const payButtons = document.querySelectorAll('.payBtn');
-  payButtons.forEach(btn=>{
-    btn.addEventListener('click', e=>{
-      e.preventDefault();
+  // Paystack Payment
+  document.querySelectorAll('.payBtn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
       const user = auth.currentUser;
       if(!user){
         alert('You must be logged in to make a payment!');
         return;
       }
-      const planName = btn.getAttribute('data-plan');
+
+      const plan = btn.getAttribute('data-plan');
       const amount = parseInt(btn.getAttribute('data-price'));
-      const handler = PaystackPop.setup({
-        key: 'pk_live_0c6c42e6e102bceb8f6c9feca402311d92cb9b25',
+
+      let handler = PaystackPop.setup({
+        key: 'YOUR_PAYSTACK_PUBLIC_KEY', // replace with real public key
         email: user.email,
         amount: amount,
         currency: 'GHS',
-        ref: '' + Math.floor(Math.random()*1000000000+1),
+        ref: '' + Math.floor(Math.random()*1000000000 +1),
         metadata: {
-          custom_fields: [{ display_name:"Plan", variable_name:"plan_name", value:planName }]
+          custom_fields: [
+            { display_name: "Plan", variable_name: "plan_name", value: plan }
+          ]
         },
-        callback: response=>{
-          alert(`Payment successful for ${planName} plan! Transaction ref: ${response.reference}`);
+        callback: function(response){
+          alert(`Payment successful for ${plan} plan! Ref: ${response.reference}`);
         },
-        onClose: ()=>{
-          alert('Transaction cancelled.');
+        onClose: function(){
+          alert('Payment cancelled.');
         }
       });
+
       handler.openIframe();
     });
   });
-
-  // Show/Hide login/signup form
-  loginBtn.addEventListener('click', ()=> document.getElementById('signupLoginForms').classList.toggle('hidden'));
-  signupBtn.addEventListener('click', ()=> document.getElementById('signupLoginForms').classList.toggle('hidden'));
-
 </script>
 
-<script src="https://js.paystack.co/v1/inline.js"></script>
-<script src="plans.js"></script>
 </body>
 </html>
-
-
-</body>
-</html>
-
-
