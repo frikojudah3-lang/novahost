@@ -1,74 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>NovaHost - Fast Web Hosting</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>NovaHost - Fast Web Hosting</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<header>
+  <header>
     <h1>NovaHost</h1>
     <p>Fast, Secure & Affordable Web Hosting</p>
-</header>
-
-<nav>
+  </header>
+  <nav>
     <a href="index.html">Home</a>
     <a href="plans.html">Hosting Plans</a>
     <a href="contact.html">Contact</a>
     <span id="authStatus">Not logged in</span>
-    <button id="logoutBtn" onclick="logoutUser()" style="display:none;">Logout</button>
-</nav>
-
-<section class="hero">
+    <button id="logoutBtn" style="display:none;">Logout</button>
+  </nav>
+  <section class="hero">
     <h2>Launch Your Website Today</h2>
     <p>Reliable hosting for students, developers and businesses.</p>
     <button onclick="document.getElementById('signupLoginForms').classList.toggle('hidden')">Get Started</button>
-</section>
-
-<!-- Signup / Login Forms -->
-<section id="signupLoginForms" class="hidden">
+  </section>
+  <!-- Signup / Login Forms -->
+  <section id="signupLoginForms" class="hidden">
     <h3>Sign Up</h3>
     <form id="signupForm">
-        <input type="email" id="signupEmail" placeholder="Email" required>
-        <input type="password" id="signupPassword" placeholder="Password" required>
-        <button type="submit">Sign Up</button>
+      <input type="email" id="signupEmail" placeholder="Email" required>
+      <input type="password" id="signupPassword" placeholder="Password" required>
+      <button type="submit">Sign Up</button>
     </form>
-
     <h3>Login</h3>
     <form id="loginForm">
-        <input type="email" id="loginEmail" placeholder="Email" required>
-        <input type="password" id="loginPassword" placeholder="Password" required>
-        <button type="submit">Login</button>
+      <input type="email" id="loginEmail" placeholder="Email" required>
+      <input type="password" id="loginPassword" placeholder="Password" required>
+      <button type="submit">Login</button>
     </form>
-
     <h3>Reset Password</h3>
     <form id="resetForm">
-        <input type="email" id="resetEmail" placeholder="Your Email" required>
-        <button type="submit">Reset Password</button>
+      <input type="email" id="resetEmail" placeholder="Your Email" required>
+      <button type="submit">Reset Password</button>
     </form>
-</section>
-
-<section class="features">
+  </section>
+  <section class="features">
     <div class="box">
-        <h3>⚡ Fast Servers</h3>
-        <p>High speed hosting for all your websites.</p>
+      <h3>⚡ Fast Servers</h3>
+      <p>High speed hosting for all your websites.</p>
     </div>
-
     <div class="box">
-        <h3>🔒 Secure</h3>
-        <p>Free SSL certificates and security protection.</p>
+      <h3>🔒 Secure</h3>
+      <p>Free SSL certificates and security protection.</p>
     </div>
-
     <div class="box">
-        <h3>📞 24/7 Support</h3>
-        <p>Our team is ready to help anytime.</p>
+      <h3>📞 24/7 Support</h3>
+      <p>Our team is ready to help anytime.</p>
     </div>
-</section>
-
-
- <script src="js/auth.js" type="module"></script>
-<script src="js/paystack.js" type="module"></script>   
+  </section>
+  <script src="login.js"></script>
 </body>
 </html>
-
