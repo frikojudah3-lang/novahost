@@ -1,51 +1,45 @@
-// ----- LOGIN & SIGNUP -----
-const loginBtn = document.getElementById('loginBtn');
-const signupBtn = document.getElementById('signupBtn');
-const logoutBtn = document.getElementById('logoutBtn');
-const welcomeMsg = document.getElementById('welcomeMsg');
+// LOGIN & SIGNUP HANDLERS
+document.addEventListener('DOMContentLoaded', () => {
+  const signupForm = document.getElementById('signupForm');
+  const loginForm = document.getElementById('loginForm');
+  const logoutBtn = document.getElementById('logoutBtn');
+  const authStatus = document.getElementById('authStatus');
 
-// Check if user is logged in
-function checkLogin() {
+  // Check login status
+  const checkLogin = () => {
     const user = sessionStorage.getItem('loggedInUser');
-    if(user) {
-        welcomeMsg.innerText = "Logged in as " + user;
-        loginBtn.style.display = 'none';
-        signupBtn.style.display = 'none';
-        logoutBtn.style.display = 'inline-block';
+    if (user) {
+      authStatus.textContent = `Logged in as ${user}`;
+      logoutBtn.style.display = 'inline-block';
     } else {
-        welcomeMsg.innerText = "";
-        loginBtn.style.display = 'inline-block';
-        signupBtn.style.display = 'inline-block';
-        logoutBtn.style.display = 'none';
+      authStatus.textContent = 'Not logged in';
+      logoutBtn.style.display = 'none';
     }
-}
+  };
 
-// LOGIN
-loginBtn.addEventListener('click', () => {
-    const email = prompt("Enter your email to login:");
-    if(email) {
-        sessionStorage.setItem('loggedInUser', email);
-        checkLogin();
-        alert("Login successful!");
-    }
-});
+  signupForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('signupEmail').value;
+    const pass = document.getElementById('signupPassword').value;
+    sessionStorage.setItem('loggedInUser', email);
+    checkLogin();
+    alert(`Signup successful: ${email}`);
+  });
 
-// SIGNUP
-signupBtn.addEventListener('click', () => {
-    const email = prompt("Enter your email to sign up:");
-    if(email) {
-        sessionStorage.setItem('loggedInUser', email);
-        checkLogin();
-        alert("Signup successful!");
-    }
-});
+  loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value;
+    const pass = document.getElementById('loginPassword').value;
+    sessionStorage.setItem('loggedInUser', email);
+    checkLogin();
+    alert(`Login successful: ${email}`);
+  });
 
-// LOGOUT
-logoutBtn.addEventListener('click', () => {
+  logoutBtn.addEventListener('click', () => {
     sessionStorage.removeItem('loggedInUser');
     checkLogin();
-    alert("Logged out successfully.");
-});
+    alert('Logged out');
+  });
 
-// Initial check on page load
-checkLogin();
+  checkLogin();
+});
