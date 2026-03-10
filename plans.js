@@ -60,4 +60,3 @@ payButtons.forEach(button => {
         handler.openIframe();
     });
 });
-

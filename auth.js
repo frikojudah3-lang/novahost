@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
 
-// Firebase configuration
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyDkvlHKcOjQQneq_kw0rHjIsxoftasr-hA",
   authDomain: "novahostauth.firebaseapp.com",
@@ -18,14 +18,27 @@ const auth = getAuth(app);
 // Monitor auth state
 onAuthStateChanged(auth, user => {
   const authStatus = document.getElementById('authStatus');
+  const welcomeMsg = document.getElementById('welcomeMsg');
+  const logoutBtn = document.getElementById('logoutBtn');
+  const loginBtn = document.getElementById('loginBtn');
+  const signupBtn = document.getElementById('signupBtn');
+
   if(user){
     authStatus.textContent = `Logged in as: ${user.email}`;
+    welcomeMsg.textContent = `Logged in as: ${user.email}`;
+    logoutBtn.style.display = 'inline';
+    loginBtn.style.display = 'none';
+    signupBtn.style.display = 'none';
   } else {
     authStatus.textContent = `Not logged in`;
+    welcomeMsg.textContent = '';
+    logoutBtn.style.display = 'none';
+    loginBtn.style.display = 'inline';
+    signupBtn.style.display = 'inline';
   }
 });
 
-// Logout button
+// Logout
 window.logoutUser = () => {
   signOut(auth).then(()=> alert('Logged out successfully!'));
 };
