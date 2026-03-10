@@ -1,1 +1,43 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <title>NovaHost - Hosting Plans</title> <link rel="stylesheet" href="style.css"> <!-- Firebase --> <script src="https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js"></script> <script src="https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js"></script> <!-- Paystack --> <script src="https://js.paystack.co/v1/inline.js"></script> <style> /* Plans page styling */ body { font-family: Arial, sans-serif; margin:0; background:#f4f4f4; } header { background:#0a2a66; color:white; padding:20px; text-align:center; } nav { background:#fff; display:flex; justify-content:center; align-items:center; padding:15px; gap:20px; border-bottom:1px solid #ddd; position: sticky; top:0; z-index:100; } nav a { text-decoration:none; color:#0a2a66; font-weight:bold; transition:0.3s; } nav a:hover { background:#0a2a66; color:#fff; border-radius:5px; padding:5px 10px; } nav #welcomeMsg { margin-left:20px; font-size:0.9rem; color:#555; } nav button { margin-left:10px; padding:5px 10px; background:#0077ff; color:#fff; border:none; border-radius:5px; cursor:pointer; transition:0.3s; } nav button:hover { background:#005bbb; } .plans { display:flex; justify-content:center; gap:20px; padding:40px; flex-wrap:wrap; } .plan { background:#fff; padding:25px; border-radius:15px; width:250px; box-shadow:0 5px 15px rgba(0,0,0,0.1); text-align:center; transition:0.3s; } .plan:hover { transform: translateY(-5px); } .plan h2 { color:#0a2a66; margin-bottom:15px; } .plan p { font-size:1.2rem; margin-bottom:15px; } .plan ul { list-style:none; padding:0; margin-bottom:20px; } .plan ul li { margin-bottom:10px; color:#555; } .plan button { padding:10px 20px; background:#ff6600; color:#fff; border:none; border-radius:10px; cursor:pointer; transition:0.3s; } .plan button:hover { background:#e65500; } /* Auth Forms */ #signupLoginForms { max-width:400px; margin:20px auto; background:#fff; padding:25px; border-radius:15px; box-shadow:0 5px 15px rgba(0,0,0,0.1); } #signupLoginForms.hidden { display:none; } #signupLoginForms h3 { margin-bottom:15px; color:#0a2a66; text-align:center; } #signupLoginForms form { display:flex; flex-direction:column; gap:15px; margin-bottom:20px; } #signupLoginForms input { padding:10px; border-radius:8px; border:1px solid #ccc; font
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NovaHost - Hosting Plans</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https:                                                               
+  <script src="https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js"></script>
+  <script src="https:                                        
+  <style>
+    body { font-family: Arial, sans-serif; margin:0; background:          
+    header { background:                                                        
+    .plans { display:flex; justify-content:center; gap:20px; padding:40px; flex-wrap:wrap; }
+    .plan { background:                                                                                                                                 
+    .plan button { padding:10px 20px; background:                                                                       
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Our Hosting Plans</h1>
+    <button id="loginBtn">Login</button>
+  </header>
+  <section id="signupLoginForms" class="hidden">
+    <form id="loginForm">
+      <input type="email" id="loginEmail" placeholder="Email" required>
+      <input type="password" id="loginPassword" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+  </section>
+  <section class="plans">
+    <div class="plan">
+      <h2>Basic Plan</h2>
+      <p>GHS 250/month</p>
+      <button class="payBtn" data-plan="Basic" data-price="25000">Pay Now</button>
+    </div>
+  </section>
+  <script>
+    const firebaseConfig = { apiKey: "AIzaSyDkvlHKcOjQQneq_kw0rHjIsxoftasr-hA", authDomain: "novahostauth.firebaseapp.com", projectId: "novahostauth", storageBucket: "novahostauth.firebasestorage.app", messagingSenderId: "693315582637", appId: "1:693315582637:web:ca2748d989447b93f86424" };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    loginBtn.addEventListener('click', ()=> {
+      document.getElementById
