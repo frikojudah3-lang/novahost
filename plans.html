@@ -1,133 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>NovaHost - Hosting Plans</title>
-<link rel="stylesheet" href="style.css">
-
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js"></script>
-
-<!-- Paystack -->
+<title>Plans - NovaHost</title>
+<link rel="stylesheet" href="css/style.css">
 <script src="https://js.paystack.co/v1/inline.js"></script>
+<script src="js/paystack.js"></script>
 </head>
+
 <body>
 
-<header>
-  <h1>Our Hosting Plans</h1>
-  <span id="authStatus">Not logged in</span>
-  <button id="logoutBtn" style="display:none;">Logout</button>
-</header>
+<h2>Hosting Plans</h2>
 
-<nav>
-  <a href="index.html">Home</a>
-  <a href="plans.html">Hosting Plans</a>
-  <a href="contact.html">Contact</a>
-</nav>
+<button onclick="payPlan(50, 'Starter')">Starter - GHS 50</button>
+<button onclick="payPlan(150, 'Business')">Business - GHS 150</button>
+<button onclick="payPlan(500, 'Enterprise')">Enterprise - GHS 500</button>
 
-<section class="plans">
-  <div class="plan">
-    <h2>Basic Plan</h2>
-    <p>GHS 250/month</p>
-    <ul>
-      <li>1 Website</li>
-      <li>10GB Storage</li>
-      <li>Free SSL</li>
-    </ul>
-    <button class="payBtn" data-plan="Basic" data-price="25000">Pay Now</button>
-  </div>
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script type="module" src="js/paystack.js"></script>
 
-  <div class="plan">
-    <h2>Standard Plan</h2>
-    <p>GHS 550/month</p>
-    <ul>
-      <li>5 Websites</li>
-      <li>50GB Storage</li>
-      <li>Free SSL</li>
-    </ul>
-    <button class="payBtn" data-plan="Standard" data-price="55000">Pay Now</button>
-  </div>
 
-  <div class="plan">
-    <h2>Premium Plan</h2>
-    <p>GHS 2,500/month</p>
-    <ul>
-      <li>Unlimited Websites</li>
-      <li>100GB Storage</li>
-      <li>Free SSL</li>
-    </ul>
-    <button class="payBtn" data-plan="Premium" data-price="250000">Pay Now</button>
-  </div>
-</section>
 
-<script>
-  // Firebase Config
-  const firebaseConfig = {
-    apiKey: "AIzaSyDkvlHKcOjQQneq_kw0rHjIsxoftasr-hA",
-    authDomain: "novahostauth.firebaseapp.com",
-    projectId: "novahostauth",
-    storageBucket: "novahostauth.firebasestorage.app",
-    messagingSenderId: "693315582637",
-    appId: "1:693315582637:web:ca2748d989447b93f86424"
-  };
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-
-  const authStatus = document.getElementById('authStatus');
-  const logoutBtn = document.getElementById('logoutBtn');
-
-  // Auth state
-  auth.onAuthStateChanged(user => {
-    if(user){
-      authStatus.innerText = `Logged in as: ${user.email}`;
-      logoutBtn.style.display = 'inline';
-    } else {
-      authStatus.innerText = 'Not logged in';
-      logoutBtn.style.display = 'none';
-    }
-  });
-
-  // Logout
-  logoutBtn.addEventListener('click', ()=>{
-    auth.signOut().then(()=> alert('Logged out successfully!'));
-  });
-
-  // Paystack Payment
-  document.querySelectorAll('.payBtn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const user = auth.currentUser;
-      if(!user){
-        alert('You must be logged in to make a payment!');
-        return;
-      }
-
-      const plan = btn.getAttribute('data-plan');
-      const amount = parseInt(btn.getAttribute('data-price'));
-
-      let handler = PaystackPop.setup({
-        key: 'YOUR_PAYSTACK_PUBLIC_KEY', // replace with real public key
-        email: user.email,
-        amount: amount,
-        currency: 'GHS',
-        ref: '' + Math.floor(Math.random()*1000000000 +1),
-        metadata: {
-          custom_fields: [
-            { display_name: "Plan", variable_name: "plan_name", value: plan }
-          ]
-        },
-        callback: function(response){
-          alert(`Payment successful for ${plan} plan! Ref: ${response.reference}`);
-        },
-        onClose: function(){
-          alert('Payment cancelled.');
-        }
-      });
-
-      handler.openIframe();
-    });
-  });
-</script>
 
 </body>
 </html>
